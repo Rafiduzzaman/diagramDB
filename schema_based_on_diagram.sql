@@ -14,3 +14,14 @@ CREATE TABLE MedicalHistories (
     FOREIGN KEY (patient_id) REFERENCES Patients(id)
 );
 
+-- -- Create the Invoice Items table
+-- CREATE TABLE InvoiceItems (
+--     id INT PRIMARY KEY,
+--     unit_price DECIMAL(10, 2),
+--     quantity INT,
+--     total_price DECIMAL(10, 2),
+--     invoice_id INT,
+--     treatment_id INT,
+--     FOREIGN KEY (invoice_id) REFERENCES Invoices(id),
+--     FOREIGN KEY (treatment_id) REFERENCES Treatments(id)
+-- );
