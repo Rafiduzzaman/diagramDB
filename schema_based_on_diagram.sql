@@ -38,9 +38,13 @@ CREATE TABLE Treatments (
 -- Create the Invoices table
 CREATE TABLE Invoices (
     id INT PRIMARY KEY,
-    total_amount DECIMAL(10, 2),
-    generated_at TIMESTAMP,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    generated_at TIMESTAMP NOT NULL,
     payed_at TIMESTAMP,
-    medical_history_id INT,
+    medical_history_id INT NOT NULL,
     FOREIGN KEY (medical_history_id) REFERENCES MedicalHistories(id)
 );
+
+CREATE INDEX idx_medical_history_id ON Invoices (medical_history_id);
+CREATE INDEX idx_generated_at ON Invoices (generated_at);
+
