@@ -14,17 +14,17 @@ CREATE TABLE MedicalHistories (
     FOREIGN KEY (patient_id) REFERENCES Patients(id)
 );
 
--- -- Create the Invoice Items table
--- CREATE TABLE InvoiceItems (
---     id INT PRIMARY KEY,
---     unit_price DECIMAL(10, 2),
---     quantity INT,
---     total_price DECIMAL(10, 2),
---     invoice_id INT,
---     treatment_id INT,
---     FOREIGN KEY (invoice_id) REFERENCES Invoices(id),
---     FOREIGN KEY (treatment_id) REFERENCES Treatments(id)
--- );
+-- Create the Invoice Items table
+CREATE TABLE InvoiceItems (
+    id INT PRIMARY KEY,
+    unit_price DECIMAL(10, 2),
+    quantity INT,
+    total_price DECIMAL(10, 2),
+    invoice_id INT,
+    treatment_id INT,
+    FOREIGN KEY (invoice_id) REFERENCES Invoices(id),
+    FOREIGN KEY (treatment_id) REFERENCES Treatments(id)
+);
 
 -- Create the table treatments
 CREATE TABLE Treatments (
@@ -44,3 +44,19 @@ CREATE TABLE Invoices (
     medical_history_id INT,
     FOREIGN KEY (medical_history_id) REFERENCES MedicalHistories(id)
 );
+
+-- Create the join table for the many-to-many relationship between medical_histories and treatments
+CREATE TABLE MedicalHistoriesHasTreatments (
+    medical_history_id INT,
+    treatment_id INT,
+    FOREIGN KEY (medical_history_id) REFERENCES MedicalHistories(id),
+    FOREIGN KEY (treatment_id) REFERENCES Treatments(id)
+);
+
+-- Create the necessary indexes
+CREATE INDEX ON MedicalHistories (patient_id);
+CREATE INDEX ON Invoices (medical_history_id);
+CREATE INDEX ON InvoiceItems (invoice_id);
+CREATE INDEX ON InvoiceItems (treatment_id);
+CREATE INDEX ON MedicalHistoriesHasTreatments (medical_history_id);
+CREATE INDEX ON MedicalHistoriesHasTreatments (treatment_id);
