@@ -25,3 +25,22 @@ CREATE TABLE MedicalHistories (
 --     FOREIGN KEY (invoice_id) REFERENCES Invoices(id),
 --     FOREIGN KEY (treatment_id) REFERENCES Treatments(id)
 -- );
+
+-- Create the table treatments
+CREATE TABLE Treatments (
+    id INT PRIMARY KEY,
+    type VARCHAR(255),
+    name VARCHAR(255),
+    medical_history_id INT,
+    FOREIGN KEY (medical_history_id) REFERENCES MedicalHistories(id)
+);
+
+-- Create the Invoices table
+CREATE TABLE Invoices (
+    id INT PRIMARY KEY,
+    total_amount DECIMAL(10, 2),
+    generated_at TIMESTAMP,
+    payed_at TIMESTAMP,
+    medical_history_id INT,
+    FOREIGN KEY (medical_history_id) REFERENCES MedicalHistories(id)
+);
